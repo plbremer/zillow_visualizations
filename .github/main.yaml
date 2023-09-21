@@ -1,0 +1,75 @@
+# Built from:
+# https://docs.github.com/en/actions/guides/building-and-testing-python
+# https://github.com/snok/install-poetry#workflows-and-tips
+---
+name: Test Data Products Inventory
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+
+      # - name: Check out repository
+      #   uses: actions/checkout@v3
+
+      - name: say hello
+        run: "echo hello world"
+
+      # - name: Check out repository
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: altos-labs/altos-labs-ontology
+      #     path: alo-repo
+      #     # token: ${{ github.token }}
+      #     token: ${{ secrets.GH_TOKEN_READ_PROJECTS }}
+
+      # - name: print secret
+      #   run: echo ${{ secrets.TEST_SECRET_ }}
+
+      - name: print secret
+        shell: bash
+        env:
+          my_environment_variable: ${{ secrets.TEST_SECRET }}
+        run: |
+          echo "$my_environment_variable"
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          repository: plbremer/my_private_repo_junk
+          path: mprj
+          # token: ${{ github.token }}
+          # token: ${{ secrets.TEST_SECRET_ }}
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          # ref: main
+          token: ${{ secrets.TEST_SECRET }}
+
+
+      - name: where am i
+        run: ls -a
+
+      # - name: Set up Python ${{ matrix.python-version }}
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: ${{ matrix.python-version }}
+
+      # - name: Install Poetry
+      #   uses: snok/install-poetry@v1.3
+
+
+      # steps:
+      # - uses: actions/checkout@master
+      #   with:
+      #     name: org1/repo1     <-- clone https://github.com/org1/repo1
+      #     ref: refs/heads/release
+
+      #https://stackoverflow.com/questions/61889035/how-do-i-use-github-actions-to-checkout-a-different-public-repo-then-add-some-f
+      #https://stackoverflow.com/questions/67949370/github-action-default-branch-not-found-on-privat-repository
+      #https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
