@@ -34,11 +34,9 @@ jobs:
       #   run: echo ${{ secrets.TEST_SECRET_ }}
 
       - name: print secret
-        shell: bash
         env:
           my_environment_variable: ${{ secrets.TEST_SECRET }}
-        run: |
-          echo "$my_environment_variable"
+        run: echo "$my_environment_variable"
 
       - name: Check out repository
         uses: actions/checkout@v4
